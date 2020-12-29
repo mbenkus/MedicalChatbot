@@ -358,7 +358,7 @@ body {
   }
   .heading {
     height: 70px;
-    background-color: #009688;
+    background-color: #f50057;
   }
   .fa-2x {
     font-size: 2.3em !important;
@@ -446,6 +446,7 @@ body {
     font-size: 1.8em !important;
   }
   .reply-main {
+    position: relative;
     padding: 2px 8px !important;
   }
   .reply-main textarea {
