@@ -198,7 +198,7 @@ body {
 }
 
 .message {
-  background: url(../img/background.svg) 50%;
+  background: url(../assets/img/background.svg) 50%;
   background-repeat: no-repeat;
   background-size: 400px 200px !important;
   padding: 0 !important;
