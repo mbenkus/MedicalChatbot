@@ -33,7 +33,7 @@ function autocomplete(symptoms) {
 
     currentFocus = -1;
     a = document.createElement("div");
-    a.setAttribute("id", this.id + "autocomplete-list");
+    a.setAttribute("id", this.id + " autocomplete-list");
     a.setAttribute("class", "autocomplete-items");
     this.parentNode.appendChild(a);
 
