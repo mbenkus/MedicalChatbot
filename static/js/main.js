@@ -18,12 +18,9 @@ $(document).ready(function () {
   });
 });
 
-function getSymptomsData(data) {
-  //todo
-}
-
-function autocomplete(input, symptomsData) {
+function autocomplete(symptoms) {
   var currentFocus;
+  var input = document.getElementById("message-text");
 
   input.addEventListener("input", function (e) {
     var a, b, i, val = this.value;
@@ -40,12 +37,12 @@ function autocomplete(input, symptomsData) {
     a.setAttribute("class", "autocomplete-items");
     this.parentNode.appendChild(a);
 
-    for (i = 0; i < arr.length; i++) {
-      if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+    for (i = 0; i < symptoms.length; i++) {
+      if (symptoms[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
         b = document.createElement("div");
-        b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-        b.innerHTML += arr[i].substr(val.length);
-        b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+        b.innerHTML = "<strong>" + symptoms[i].substr(0, val.length) + "</strong>";
+        b.innerHTML += symptoms[i].substr(val.length);
+        b.innerHTML += "<input type='hidden' value='" + symptoms[i] + "'>";
 
         b.addEventListener("click", function (e) {
           input.value = this.getElementsByTagName("input")[0].value;
@@ -62,13 +59,13 @@ function autocomplete(input, symptomsData) {
     if (x) x = x.getElementsByTagName("div");
 
     // On arrow down, arrow up and enter
-    if (e.keyCode == 40) {
+    if (e.code == 'ArrowUp') {
       currentFocus++;
       addActive(x);
-    } else if (e.keyCode == 38) {
+    } else if (e.code == 'ArrowDown') {
       currentFocus--;
       addActive(x);
-    } else if (e.keyCode == 13) {
+    } else if (e.code == 'Enter') {
       e.preventDefault();
       if (currentFocus > -1) {
         if (x) x[currentFocus].click();
@@ -106,5 +103,4 @@ function autocomplete(input, symptomsData) {
   });
 }
 
-// todo fill symptomsdata
-autocomplete(document.getElementById("message-text"), symptomsData);
+autocomplete(symptoms);
