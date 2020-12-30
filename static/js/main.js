@@ -22,6 +22,8 @@ function autocomplete(symptoms) {
   var currentFocus;
   var input = document.getElementById("message-text");
 
+  console.log(symptoms);
+
   input.addEventListener("input", function (e) {
     var a, b, i, val = this.value;
 
@@ -40,9 +42,9 @@ function autocomplete(symptoms) {
     for (i = 0; i < symptoms.length; i++) {
       if (symptoms[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
         b = document.createElement("div");
-        b.innerHTML = "<strong>" + symptoms[i].substr(0, val.length) + "</strong>";
-        b.innerHTML += symptoms[i].substr(val.length);
-        b.innerHTML += "<input type='hidden' value='" + symptoms[i] + "'>";
+        b.innerHTML = "<strong>" + symptoms[i] + "</strong>";
+        b.innerHTML += symptoms[i];
+        b.innerHTML += "<input value='" + symptoms[i] + "'>";
 
         b.addEventListener("click", function (e) {
           input.value = this.getElementsByTagName("input")[0].value;
