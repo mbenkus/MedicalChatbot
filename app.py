@@ -1,6 +1,7 @@
 import json
 import torch
 import nltk
+
 from nnet import NeuralNet
 from nltk_utils import bag_of_words
 from flask import Flask, render_template, url_for, request, jsonify
@@ -59,9 +60,14 @@ def index():
 def predict_symptom():
     print("Request json:", request.json)
     sentence = request.json['sentence']
-    symptom, prob = get_symptom(sentence)
-    print("Symptom:", symptom, ", prob: ", prob)
-    # todo probability limit
-    # todo end keyword
-    response_sentence = "I have identified " + symptom + "."
+    if sentence.replace(".", "").replace("!","").lower() == "done":
+        response_sentence = "Alright, Meddy needs some time to think."
+    else:
+        symptom, prob = get_symptom(sentence)
+        print("Symptom:", symptom, ", prob:", prob)
+        if prob > .5:
+            response_sentence = f"Hmm, I'm {(prob * 100):.2f}% sure this is " + symptom + "."
+        else:
+            response_sentence = "I'm sorry, but I don't understand you."
+
     return jsonify(response_sentence.replace("_", " "))
