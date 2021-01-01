@@ -8,7 +8,7 @@ from flask import Flask, render_template, url_for, request, jsonify
 
 app = Flask(__name__)
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cpu')
 FILE = "data.pth"
 model_data = torch.load(FILE)
 
