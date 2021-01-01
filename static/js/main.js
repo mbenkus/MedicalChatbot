@@ -1,12 +1,32 @@
 $(document).ready(function () {
   $("#send").click(function () {
+    $.fn.handleUserMessage();
+  });
+
+  $("#message-text").on("keypress", function (e) {
+    if (e.which == 13) {
+      $.fn.handleUserMessage();
+    }
+  });
+
+  $.fn.handleUserMessage = function () {
+    $.fn.appendUserMessage();
+    $.fn.getPredictedSymptom();
+    $("#message-text").val("");
+  }
+
+  $.fn.appendUserMessage = function () {
     var tekst = $("#message-text").val();
     $("#conversation").append(
       `<div class="row message-body"><div class="col-sm-12 message-main-sender"><div class="sender"><div class="message-text">${tekst}</div></div></div></div>`
     );
+  }
+
+  $.fn.getPredictedSymptom = function () {
+    var tekst = $("#message-text").val();
     $.ajax({
       url: "http://127.0.0.1:5000/symptom",
-      data: JSON.stringify({"sentence": tekst}),
+      data: JSON.stringify({ "sentence": tekst }),
       contentType: "application/json; charset=utf-8",
       dataType: "json",
       type: "POST",
@@ -17,21 +37,11 @@ $(document).ready(function () {
         );
       },
       error: function () {
-        console.log("Error")
+        console.log("Error");
       }
     });
-    $("#message-text").val("");
-  });
+  }
 
-  $(document).on("keypress", function (e) {
-    if (e.which == 13) {
-      var tekst = $("#message-text").val();
-      $("#conversation").append(
-        `<div class="row message-body"><div class="col-sm-12 message-main-sender"><div class="sender"><div class="message-text">${tekst}</div></div></div></div>`
-      );
-      $("#message-text").val("");
-    }
-  });
 });
 
 function autocomplete(symptoms) {
