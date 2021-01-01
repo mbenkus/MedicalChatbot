@@ -4,6 +4,22 @@ $(document).ready(function () {
     $("#conversation").append(
       `<div class="row message-body"><div class="col-sm-12 message-main-sender"><div class="sender"><div class="message-text">${tekst}</div></div></div></div>`
     );
+    $.ajax({
+      url: "http://127.0.0.1:5000/symptom",
+      data: JSON.stringify({"sentence": tekst}),
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      type: "POST",
+      success: function (response) {
+        console.log(response);
+        $("#conversation").append(
+          `<div class="row message-body"><div class="col-sm-12 message-main-receiver"><div class="receiver"><div class="message-text">${response}</div></div></div></div>`
+        );
+      },
+      error: function () {
+        console.log("Error")
+      }
+    });
     $("#message-text").val("");
   });
 
@@ -22,7 +38,7 @@ function autocomplete(symptoms) {
   var currentFocus;
   var input = document.getElementById("message-text");
 
-  console.log(symptoms);
+  // console.log(symptoms);
 
   input.addEventListener("input", function (e) {
     var a, b, i, val = this.value;
@@ -55,7 +71,7 @@ function autocomplete(symptoms) {
       }
     }
   });
-  
+
   input.addEventListener("keydown", function (e) {
     var x = document.getElementById(this.id + "autocomplete-list");
     if (x) x = x.getElementsByTagName("div");
