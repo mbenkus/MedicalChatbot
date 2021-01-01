@@ -1,6 +1,8 @@
 import json
 import torch
 import nltk
+import pickle
+import numpy as np
 
 from nnet import NeuralNet
 from nltk_utils import bag_of_words
@@ -40,9 +42,7 @@ def get_symptom(sentence):
 
     return tag, prob
 
-
-# print(get_symptom("My head hurts!!!"))
-
+symptoms = []
 
 @app.route('/')
 def index():
@@ -61,12 +61,31 @@ def predict_symptom():
     print("Request json:", request.json)
     sentence = request.json['sentence']
     if sentence.replace(".", "").replace("!","").lower() == "done":
-        response_sentence = "Alright, Meddy needs some time to think."
+        x_train = []
+
+        with open('list_of_symptoms.pickle', 'rb') as data_file:
+            symptoms_list = pickle.load(data_file)
+
+        for each in symptoms_list: 
+            if each in symptoms:
+                x_train.append(1)
+            else: 
+                x_train.append(0)
+
+        with open('fitted_model.pickle', 'rb') as modelFile:
+            model = pickle.load(modelFile)
+
+        x_train = np.asarray(x_train)            
+        disease = model.predict(x_train.reshape(1,-1))[0]
+
+        response_sentence = "It looks to me like you have " + disease + "."
+ 
     else:
         symptom, prob = get_symptom(sentence)
         print("Symptom:", symptom, ", prob:", prob)
         if prob > .5:
             response_sentence = f"Hmm, I'm {(prob * 100):.2f}% sure this is " + symptom + "."
+            symptoms.append(symptom)
         else:
             response_sentence = "I'm sorry, but I don't understand you."
 
