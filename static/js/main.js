@@ -48,7 +48,7 @@ $(document).ready(function () {
     input.val("");
     chat.animate({
       scrollTop: $("#conversation .message-body:last-child").position().top
-    }, 1000);
+    });
   };
 
   // Creates the newly sent message element
