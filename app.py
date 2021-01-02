@@ -62,22 +62,22 @@ def predict_symptom():
     print("Request json:", request.json)
     sentence = request.json['sentence']
     if sentence.replace(".", "").replace("!","").lower() == "done":
-        x_train = []
+        x_test = []
 
         with open('list_of_symptoms.pickle', 'rb') as data_file:
             symptoms_list = pickle.load(data_file)
 
         for each in symptoms_list: 
             if each in symptoms:
-                x_train.append(1)
+                x_test.append(1)
             else: 
-                x_train.append(0)
+                x_test.append(0)
 
         with open('fitted_model.pickle', 'rb') as modelFile:
             model = pickle.load(modelFile)
 
-        x_train = np.asarray(x_train)            
-        disease = model.predict(x_train.reshape(1,-1))[0]
+        x_test = np.asarray(x_test)            
+        disease = model.predict(x_test.reshape(1,-1))[0]
 
         diseases_description = pd.read_csv("symptom_Description.csv")
         description = diseases_description.loc[diseases_description['Disease'] == disease, 'Description'].iloc[0]
