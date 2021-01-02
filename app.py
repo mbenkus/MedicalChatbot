@@ -80,9 +80,9 @@ def predict_symptom():
         disease = model.predict(x_test.reshape(1,-1))[0]
 
         diseases_description = pd.read_csv("symptom_Description.csv")
-        description = diseases_description.loc[diseases_description['Disease'] == disease, 'Description'].iloc[0]
-
-        response_sentence = "It looks to me like you have " + disease + ". Description: " + description 
+        #description = diseases_description.loc[diseases_description['Disease'] == disease, 'Description'].iloc[0]
+        response_sentence = "It looks to me like you have " + disease + "."
+        #response_sentence = "It looks to me like you have " + disease + ". Description: " + description 
  
     else:
         symptom, prob = get_symptom(sentence)
