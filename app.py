@@ -3,6 +3,7 @@ import torch
 import nltk
 import pickle
 import numpy as np
+import pandas as pd
 
 from nnet import NeuralNet
 from nltk_utils import bag_of_words
@@ -78,7 +79,10 @@ def predict_symptom():
         x_train = np.asarray(x_train)            
         disease = model.predict(x_train.reshape(1,-1))[0]
 
-        response_sentence = "It looks to me like you have " + disease + "."
+        diseases_description = pd.read_csv("symptom_Description.csv")
+        description = diseases_description.loc[diseases_description['Disease'] == disease, 'Description'].iloc[0]
+
+        response_sentence = "It looks to me like you have " + disease + ". Description: " + description 
  
     else:
         symptom, prob = get_symptom(sentence)
