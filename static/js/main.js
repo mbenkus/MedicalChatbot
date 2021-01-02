@@ -1,4 +1,8 @@
 $(document).ready(function () {
+
+  symptoms = JSON.parse(symptoms);
+  var dataList = document.getElementById("symptoms-list");
+
   $(".symptoms-list-container").css("display", "none");
 
   $("#send").click(function () {
@@ -15,7 +19,7 @@ $(document).ready(function () {
     let suggestedSymptoms = []
     $.each(symptoms, function(i,v) {
       if (v.includes(val)) {
-        suggestedSymptoms.push(val);
+        suggestedSymptoms.push(v);
       }
     });
     return suggestedSymptoms.slice(0,3);
@@ -23,8 +27,14 @@ $(document).ready(function () {
 
   $("#message-text").on("input", function () {
     let insertedValue = $(this).val();
-    if (Number(insertedValue.length) > 2) {
-      symptoms = $.fn.getSuggestedSymptoms(insertedValue);
+    $("#symptoms-list").empty();
+    if (insertedValue.length > 2) {
+      ssymptoms = $.fn.getSuggestedSymptoms(insertedValue);
+      for (let i = 0; i < ssymptoms.length; i++) {
+        var li = document.createElement("li");
+        li.textContent = ssymptoms[i];
+        dataList.appendChild(li);
+      }
     }
   });
 
