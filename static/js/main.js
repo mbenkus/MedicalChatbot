@@ -2,10 +2,11 @@ $(document).ready(function () {
   symptoms = JSON.parse(symptoms);
   let input = $("#message-text");
   let dataList = $("#symptoms-list");
-  let suggestedItem = $("#symptoms-list li");
+  let chat = $("#conversation");
 
   $(".symptoms-list-container").css("display", "none");
 
+  // Handler for any input on the message input field
   input.on("input", function () {
     let insertedValue = $(this).val();
     $("#symptoms-list").empty();
@@ -20,13 +21,14 @@ $(document).ready(function () {
     }
   });
 
+  // Handler for click on one of the suggested symptoms
+  dataList.on("click", "li", function() {
+    input.val($(this).text());
+  });
+  //todo: blur on input - does not work with suggestion item clicks
+
   input.on("focus", function () {
     $(".symptoms-list-container ").css("display", "block");
-  });
-
-  //todo - check why it does not work
-  suggestedItem.click(function () {
-    console.log("test");
   });
 
   input.on("keypress", function (e) {
@@ -39,24 +41,30 @@ $(document).ready(function () {
     $.fn.handleUserMessage();
   });
 
+  // Handler function for sending a message 
   $.fn.handleUserMessage = function () {
     $.fn.appendUserMessage();
     $.fn.getPredictedSymptom();
     input.val("");
-  }
+    chat.animate({
+      scrollTop: $("#conversation .message-body:last-child").position().top
+    }, 1000);
+  };
 
+  // Creates the newly sent message element
   $.fn.appendUserMessage = function () {
     var tekst = input.val();
     $("#conversation").append(
       `<div class="row message-body"><div class="col-sm-12 message-main-sender"><div class="sender"><div class="message-text">${tekst}</div></div></div></div>`
     );
-  }
+  };
 
+  // Retreives prediction to show as bot message
   $.fn.getPredictedSymptom = function () {
     var tekst = input.val();
     $.ajax({
       url: "http://127.0.0.1:5000/symptom",
-      data: JSON.stringify({ "sentence": tekst }),
+      data: JSON.stringify({ sentence: tekst }),
       contentType: "application/json; charset=utf-8",
       dataType: "json",
       type: "POST",
@@ -68,17 +76,17 @@ $(document).ready(function () {
       },
       error: function () {
         console.log("Error");
-      }
+      },
     });
-  }
+  };
 
   $.fn.getSuggestedSymptoms = function (val) {
-    let suggestedSymptoms = []
-    $.each(symptoms, function(i,v) {
+    let suggestedSymptoms = [];
+    $.each(symptoms, function (i, v) {
       if (v.includes(val)) {
         suggestedSymptoms.push(v);
       }
     });
-    return suggestedSymptoms.slice(0,3);
-  }
+    return suggestedSymptoms.slice(0, 3);
+  };
 });
