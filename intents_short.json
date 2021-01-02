@@ -12,6 +12,7 @@
         {
             "tag": "abnormal_menstruation",
             "patterns": [
+                "abnormal menstruation",
                 "heavy period",
                 "Heavy flow",
                 "Period lasts longer",
@@ -31,6 +32,7 @@
         {
             "tag": "acute_liver_failure",
             "patterns": [
+                "acute liver failure",
                 "liver hurts",
                 "pain around liver",
                 "Upper right abdomen hurts"
@@ -39,6 +41,7 @@
         {
             "tag": "altered_sensorium",
             "patterns": [
+                "altered sensorium",
                 "can't think clearly",
                 "hard to think",
                 "unable to concentrate"
@@ -47,6 +50,7 @@
         {
             "tag": "anxiety",
             "patterns": [
+                "anxiety",
                 "anxious",
                 "really worried",
                 "nervous"
@@ -81,6 +85,7 @@
         {
             "tag": "bladder_discomfort",
             "patterns": [
+                "bladder discomfort",
                 "bladder hurts",
                 "discomfort in bladder",
                 "Pressure in bladder"
@@ -98,6 +103,7 @@
         {
             "tag": "blood_in_sputum",
             "patterns": [
+                "blood in sputum",
                 "coughing up blood",
                 "Blood while caughing"
             ]
@@ -113,6 +119,7 @@
         {
             "tag": "blurred_and_distorted_vision",
             "patterns": [
+                "blurred and distorted vision",
                 "can't see clearly",
                 "blurry vision",
                 "Vision distorted"
@@ -121,6 +128,7 @@
         {
             "tag": "breathlessness",
             "patterns": [
+                "breathlessness",
                 "difficulty breathing",
                 "out of breath",
                 "feel winded",
@@ -130,6 +138,7 @@
         {
             "tag": "brittle_nails",
             "patterns": [
+                "brittle nails",
                 "nails weak",
                 "Nails brittle",
                 "Nails easily broken"
@@ -138,6 +147,7 @@
         {
             "tag": "bruising",
             "patterns": [
+                "bruising",
                 "bruises",
                 "easily bruised",
                 "lot of bruises"
@@ -146,6 +156,7 @@
         {
             "tag": "burning_micturition",
             "patterns": [
+                "burning micturition",
                 "hurts when pee",
                 "burns when pee",
                 "Burning sensation peeing"
@@ -169,6 +180,7 @@
         {
             "tag": "cold_hands_and_feets",
             "patterns": [
+                "cold hands and feets",
                 "hands are cold",
                 "feet are cold",
                 "cold hands",
@@ -178,6 +190,7 @@
         {
             "tag": "coma",
             "patterns": [
+                "coma",
                 "experienced coma",
                 "was in coma"
             ]
@@ -193,6 +206,7 @@
         {
             "tag": "continuous_feel_of_urine",
             "patterns": [
+                "continuous feel of urine",
                 "to pee",
                 "Urge to pee",
                 "pee constantly"
@@ -201,6 +215,7 @@
         {
             "tag": "continuous_sneezing",
             "patterns": [
+                "continuous sneezing",
                 "sneezing all the time",
                 "sneeze a lot",
                 "Always sneezing",
@@ -210,6 +225,7 @@
         {
             "tag": "cough",
             "patterns": [
+                "cough",
                 "coughing all the time",
                 "cough a lot",
                 "Always caughing",
@@ -256,6 +272,7 @@
         {
             "tag": "dischromic_patches",
             "patterns": [
+                "dischromic patches",
                 "lost color on skin",
                 "patches different color",
                 "skin patched"
@@ -264,6 +281,7 @@
         {
             "tag": "distention_of_abdomen",
             "patterns": [
+                "distention of abdomen",
                 "stomach bloated",
                 "abdomen bloated",
                 "Abdomen expanded"
@@ -272,6 +290,7 @@
         {
             "tag": "dizziness",
             "patterns": [
+                "dizziness",
                 "feeling dizzy",
                 "experiencing dizziness",
                 "woozy",
@@ -282,6 +301,7 @@
         {
             "tag": "drying_and_tingling_lips",
             "patterns": [
+                "drying and tingling lips",
                 "lips tingly",
                 "dry lips",
                 "Dried lips",
@@ -292,12 +312,13 @@
             "tag": "enlarged_thyroid",
             "patterns": [
                 "thyroid large",
-                "enlarger thyroid"
+                "enlarged thyroid"
             ]
         },
         {
             "tag": "excessive_hunger",
             "patterns": [
+                "excessive hunger",
                 "really hungry",
                 "always hungry",
                 "hunger"
@@ -306,6 +327,7 @@
         {
             "tag": "extra_marital_contacts",
             "patterns": [
+                "extra marital contacts",
                 "affair",
                 "sex with stranger"
             ]
@@ -313,6 +335,7 @@
         {
             "tag": "family_history",
             "patterns": [
+                "family history",
                 "family disease history",
                 "parents also sick",
                 "genetically at risk",
@@ -322,6 +345,7 @@
         {
             "tag": "fast_heart_rate",
             "patterns": [
+                "fast heart rate",
                 "heart beating fast",
                 "high heart rate",
                 "Heart really pumping"
@@ -339,6 +363,7 @@
         {
             "tag": "fluid_overload",
             "patterns": [
+                "fluid overload",
                 "swolen",
                 "body swelling",
                 "gained weight"
@@ -347,6 +372,7 @@
         {
             "tag": "foul_smell_ofurine",
             "patterns": [
+                "foul smell ofurine",
                 "urine smells bad",
                 "pee smells",
                 "pee stinks"
@@ -371,6 +397,7 @@
         {
             "tag": "hip_joint_pain",
             "patterns": [
+                "hip joint pain",
                 "hip hurts",
                 "pain in hip"
             ]
@@ -378,6 +405,7 @@
         {
             "tag": "history_of_alcohol_consumption",
             "patterns": [
+                "history of alcohol consumption",
                 "drink a lot",
                 "drinking for long time",
                 "History drinking"
@@ -394,6 +422,7 @@
         {
             "tag": "indigestion",
             "patterns": [
+                "indigestion",
                 "discomfort in stomach",
                 "upset stomach",
                 "Upper abdomen pain"
@@ -402,6 +431,7 @@
         {
             "tag": "inflammatory_nails",
             "patterns": [
+                "inflammatory nails",
                 "nails inflamed",
                 "nails infected",
                 "Inflammation around nails"
@@ -418,6 +448,7 @@
         {
             "tag": "irregular_sugar_level",
             "patterns": [
+                "irregular sugar level",
                 "sugar level off",
                 "Sugar level not normal",
                 "low sugar",
@@ -427,6 +458,7 @@
         {
             "tag": "irritability",
             "patterns": [
+                "irritability",
                 "easily irritable",
                 "annoyed",
                 "Easily frustrated"
@@ -435,6 +467,7 @@
         {
             "tag": "irritation_in_anus",
             "patterns": [
+                "irritation in anus",
                 "butt itchy",
                 "Anus itchy",
                 "irritated anus"
@@ -443,6 +476,7 @@
         {
             "tag": "itching",
             "patterns": [
+                "itching",
                 "itchy everywhere",
                 "body itching"
             ]
@@ -466,6 +500,7 @@
         {
             "tag": "lack_of_concentration",
             "patterns": [
+                "lack of concentration",
                 "can't concentrate",
                 "lack concentration",
                 "Can't focus"
@@ -474,6 +509,7 @@
         {
             "tag": "lethargy",
             "patterns": [
+                "lethargy",
                 "lack energy",
                 "enthusiasm low",
                 "sleepy",
@@ -492,7 +528,8 @@
         {
             "tag": "loss_of_balance",
             "patterns": [
-                "losing  balance",
+                "loss of balance",
+                "losing balance",
                 "unsteady",
                 "dizzy",
                 "vertigo"
@@ -838,11 +875,9 @@
         {
             "tag": "unsteadiness",
             "patterns": [
-                "loss of balance",
-                "lost balance",
+                "unsteadiness",
                 "fell lost balance",
                 "like going to fall",
-                "no balance",
                 "unsteady",
                 "imbalanced"
             ]
@@ -860,6 +895,7 @@
         {
             "tag": "toxic_look_(typhos)",
             "patterns": [
+                "toxic look typhos",
                 "don't look so good"
             ]
         },
@@ -885,6 +921,7 @@
         {
             "tag": "swollen_extremeties",
             "patterns": [
+                "swollen extremeties",
                 "swollen legs",
                 "swollen arms",
                 "feet swollen",
@@ -934,6 +971,7 @@
         {
             "tag": "sweating",
             "patterns": [
+                "sweating",
                 "sweating too much",
                 "sweating a lot",
                 "sweating excessively"
@@ -942,6 +980,7 @@
         {
             "tag": "sunken_eyes",
             "patterns": [
+                "sunken eyes",
                 "eyes tired",
                 "dark circles under eyes",
                 "skin around eyes dark",
@@ -977,6 +1016,7 @@
         {
             "tag": "spotting_urination",
             "patterns": [
+                "spotting urination",
                 "spotted blood urine",
                 "little blood urine"
             ]
@@ -984,6 +1024,7 @@
         {
             "tag": "spinning_movements",
             "patterns": [
+                "spinning movements",
                 "like spinning",
                 "like moving"
             ]
@@ -1000,6 +1041,7 @@
         {
             "tag": "slurred_speech",
             "patterns": [
+                "slurred speech",
                 "speech problems",
                 "can't pronounce words",
                 "mumbling",
@@ -1037,6 +1079,7 @@
         {
             "tag": "silver_like_dusting",
             "patterns": [
+                "silver like dusting",
                 "skin blue",
                 "skin grey"
             ]
@@ -1050,11 +1093,14 @@
         },
         {
             "tag": "scurring",
-            "patterns": []
+            "patterns": [
+                "scurring"
+            ]
         },
         {
             "tag": "rusty_sputum",
             "patterns": [
+                "rusty sputum",
                 "brown phlegm",
                 "rusty brown sputum",
                 "brown sputum"
@@ -1091,6 +1137,7 @@
         {
             "tag": "red_spots_over_body",
             "patterns": [
+                "red spots over body",
                 "red spots on body",
                 "small patched on body"
             ]
