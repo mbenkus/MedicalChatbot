@@ -207,12 +207,14 @@ body {
   border: 1px solid #f7f7f7;
   height: calc(100% - 120px);
 }
+
 .message-previous {
   margin: 0 !important;
   padding: 0 !important;
   height: auto;
   width: 100%;
 }
+
 .previous {
   font-size: 15px;
   text-align: center;
@@ -358,10 +360,30 @@ body {
 .symptoms-list-container {
   width: 100%;
   position: absolute;
+  z-index: 0;
   top: -70px;
   height: 60px;
   overflow-x: hidden;
   overflow-y: scroll;
+  background-color: #ffbaba;
+  padding: 10px 10px 0 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
 }
 
 #symptoms-list {
@@ -370,6 +392,12 @@ body {
 
 #symptoms-list li {
   list-style: none;
+  padding: 2px 10px;
+}
+
+#symptoms-list li:hover {
+  cursor: pointer;
+  background-color: white;
 }
 
 @media screen and (max-width: 700px) {
@@ -377,66 +405,84 @@ body {
     top: 0;
     height: 100%;
   }
+
   .heading {
     height: 70px;
     background-color: #f50057;
   }
+
   .fa-2x {
     font-size: 2.3em !important;
   }
+
   .heading-avatar {
     padding: 0 !important;
   }
+
   .heading-avatar-icon img {
     height: 50px;
     width: 50px;
   }
+
   .heading-compose {
     padding: 5px !important;
   }
+
   .heading-compose i {
     color: #fff;
     cursor: pointer;
   }
+
   .heading-dot {
     padding: 5px !important;
     margin-left: 10px !important;
   }
+
   .heading-dot i {
     color: #fff;
     cursor: pointer;
   }
+
   .sideBar {
     height: calc(100% - 130px);
   }
+
   .sideBar-body {
     height: 80px;
   }
+
   .sideBar-avatar {
     text-align: left;
     padding: 0 8px !important;
   }
+
   .avatar-icon img {
     height: 55px;
     width: 55px;
   }
+
   .sideBar-main {
     padding: 0 !important;
   }
+
   .sideBar-main .row {
     padding: 0 !important;
     margin: 0 !important;
   }
+
   .sideBar-name {
     padding: 10px 5px !important;
   }
+
   .name-meta {
     font-size: 16px;
     padding: 5% !important;
   }
+
   .sideBar-time {
     padding: 10px !important;
   }
+
   .time-meta {
     text-align: right;
     font-size: 14px;
@@ -444,6 +490,7 @@ body {
     color: rgba(0, 0, 0, 0.4);
     vertical-align: baseline;
   }
+
   /*Conversation*/
   .conversation {
     padding: 0 !important;
@@ -453,37 +500,47 @@ body {
     border-left: 1px solid rgba(0, 0, 0, 0.08);
     /*overflow-y: auto;*/
   }
+
   .message {
     height: calc(100% - 140px);
   }
+
   .reply {
     height: 70px;
   }
+
   .reply-emojis {
     padding: 5px 0 !important;
   }
+
   .reply-emojis i {
     padding: 5px 2px !important;
     font-size: 1.8em !important;
   }
+
   .reply-main {
     position: relative;
     padding: 2px 8px !important;
   }
+
   .reply-main textarea {
     padding: 8px !important;
     font-size: 18px;
   }
+
   .reply-recording {
     padding: 5px 0 !important;
   }
+
   .reply-recording i {
     padding: 5px 0 !important;
     font-size: 1.8em !important;
   }
+
   .reply-send {
     padding: 5px 0 !important;
   }
+
   .reply-send i {
     padding: 5px 2px 5px 0 !important;
     font-size: 1.8em !important;
