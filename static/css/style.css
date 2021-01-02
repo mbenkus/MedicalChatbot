@@ -351,6 +351,27 @@ body {
   box-shadow: none;
 }
 
+.conversation {
+  position: relative;
+}
+
+.symptoms-list-container {
+  width: 100%;
+  position: absolute;
+  top: -70px;
+  height: 60px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+#symptoms-list {
+  padding-left: 0;
+}
+
+#symptoms-list li {
+  list-style: none;
+}
+
 @media screen and (max-width: 700px) {
   .app {
     top: 0;
@@ -466,33 +487,5 @@ body {
   .reply-send i {
     padding: 5px 2px 5px 0 !important;
     font-size: 1.8em !important;
-  }
-
-  .autocomplete {
-    position: relative;
-    display: inline-block;
-  }
-  .autocomplete-items {
-    position: absolute;
-    border: 1px solid #d4d4d4;
-    border-bottom: none;
-    border-top: none;
-    z-index: 99;
-    top: 100%;
-    left: 0;
-    right: 0;
-  }
-  .autocomplete-items div {
-    padding: 10px;
-    cursor: pointer;
-    background-color: #fff;
-    border-bottom: 1px solid #d4d4d4;
-  }
-  .autocomplete-items div:hover {
-    background-color: #e9e9e9;
-  }
-  .autocomplete-active {
-    background-color: DodgerBlue !important;
-    color: #ffffff;
   }
 }
