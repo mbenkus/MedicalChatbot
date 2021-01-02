@@ -24,6 +24,7 @@ $(document).ready(function () {
   // Handler for click on one of the suggested symptoms
   dataList.on("click", "li", function() {
     input.val($(this).text());
+    $(".symptoms-list-container ").hide();
   });
   //todo: blur on input - does not work with suggestion item clicks
 
