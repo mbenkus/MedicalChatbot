@@ -2,6 +2,8 @@ import json
 import torch
 import nltk
 import pickle
+import random
+from datetime import datetime
 import numpy as np
 import pandas as pd
 
@@ -9,7 +11,7 @@ from nnet import NeuralNet
 from nltk_utils import bag_of_words
 from flask import Flask, render_template, url_for, request, jsonify
 
-app = Flask(__name__)
+random.seed(datetime.now())
 
 device = torch.device('cpu')
 FILE = "data.pth"
@@ -22,10 +24,22 @@ all_words = model_data['all_words']
 tags = model_data['tags']
 model_state = model_data['model_state']
 
-model = NeuralNet(input_size, hidden_size, output_size).to(device)
-model.load_state_dict(model_state)
-model.eval()
+nlp_model = NeuralNet(input_size, hidden_size, output_size).to(device)
+nlp_model.load_state_dict(model_state)
+nlp_model.eval()
 
+diseases_description = pd.read_csv("symptom_Description.csv")
+disease_precaution = pd.read_csv("symptom_precaution.csv")
+
+with open('list_of_symptoms.pickle', 'rb') as data_file:
+    symptoms_list = pickle.load(data_file)
+
+with open('fitted_model.pickle', 'rb') as modelFile:
+    prediction_model = pickle.load(modelFile)
+
+user_symptoms = set()
+
+app = Flask(__name__)
 
 def get_symptom(sentence):
     sentence = nltk.word_tokenize(sentence)
@@ -33,7 +47,7 @@ def get_symptom(sentence):
     X = X.reshape(1, X.shape[0])
     X = torch.from_numpy(X)
 
-    output = model(X)
+    output = nlp_model(X)
     _, predicted = torch.max(output, dim=1)
     tag = tags[predicted.item()]
 
@@ -43,14 +57,13 @@ def get_symptom(sentence):
 
     return tag, prob
 
-symptoms = []
-
 @app.route('/')
 def index():
     data = []
+    user_symptoms.clear()
     file = open("static/assets/files/ds_symptoms.txt", "r")
-    symptoms = file.readlines()
-    for s in symptoms:
+    all_symptoms = file.readlines()
+    for s in all_symptoms:
         data.append(s.replace("'", "").replace("_", " ").replace(",\n", ""))
     data = json.dumps(data)
 
@@ -62,38 +75,40 @@ def predict_symptom():
     print("Request json:", request.json)
     sentence = request.json['sentence']
     if sentence.replace(".", "").replace("!","").lower() == "done":
-        x_test = []
 
-        with open('list_of_symptoms.pickle', 'rb') as data_file:
-            symptoms_list = pickle.load(data_file)
+        if not user_symptoms:
+            response_sentence = random.choice(
+                ["I can't know what disease you may have if you don't enter any symptoms :)",
+                "Meddy can't know the disease if there are no symptoms...",
+                "You first have to enter some symptoms!"])
+        else:
+            x_test = []
+            
+            for each in symptoms_list: 
+                if each in user_symptoms:
+                    x_test.append(1)
+                else: 
+                    x_test.append(0)
 
-        for each in symptoms_list: 
-            if each in symptoms:
-                x_test.append(1)
-            else: 
-                x_test.append(0)
+            x_test = np.asarray(x_test)            
+            disease = prediction_model.predict(x_test.reshape(1,-1))[0]
 
-        with open('fitted_model.pickle', 'rb') as modelFile:
-            model = pickle.load(modelFile)
+            description = diseases_description.loc[diseases_description['Disease'] == disease.strip(" "), 'Description'].iloc[0]
+            precaution = disease_precaution[disease_precaution['Disease'] == disease]
+            sentence = 'Precautions: ' + precaution.Precaution_1.iloc[0] + ", " + precaution.Precaution_2.iloc[0] + ", " + precaution.Precaution_3.iloc[0] + ", " + precaution.Precaution_4.iloc[0]
+            response_sentence = "It looks to me like you have " + disease + ". <br><br> <i>Description: " + description + "</i>" + "<br><br><b>"+ sentence + "</b"
 
-        x_test = np.asarray(x_test)            
-        disease = model.predict(x_test.reshape(1,-1))[0]
-
-        diseases_description = pd.read_csv("symptom_Description.csv")
-        disease_precaution = pd.read_csv("symptom_precaution.csv")
-
-        description = diseases_description.loc[diseases_description['Disease'] == disease.strip(" "), 'Description'].iloc[0]
-        precaution = disease_precaution[disease_precaution['Disease'] == disease]
-        sentence = 'Precautions: ' + precaution.Precaution_1.iloc[0] + ", " + precaution.Precaution_2.iloc[0] + ", " + precaution.Precaution_3.iloc[0] + ", " + precaution.Precaution_4.iloc[0]
-        response_sentence = "It looks to me like you have " + disease + ". <br><br> <i>Description: " + description + "</i>" + "<br><br><b>"+ sentence + "</b"
+            user_symptoms.clear()
  
     else:
         symptom, prob = get_symptom(sentence)
         print("Symptom:", symptom, ", prob:", prob)
         if prob > .5:
             response_sentence = f"Hmm, I'm {(prob * 100):.2f}% sure this is " + symptom + "."
-            symptoms.append(symptom)
+            user_symptoms.add(symptom)
         else:
             response_sentence = "I'm sorry, but I don't understand you."
+
+        print("User symptoms:", user_symptoms)
 
     return jsonify(response_sentence.replace("_", " "))
