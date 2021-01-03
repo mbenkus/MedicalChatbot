@@ -37,14 +37,13 @@ body {
   position: relative;
   overflow: hidden;
   top: 19px;
-  height: calc(100% - 38px);
+  height: calc(100% - 30px);
   margin: auto;
   padding: 0;
-  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.06), 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+  border: none;
 }
 
 .app-one {
-  background-color: #f7f7f7;
   height: 100%;
   overflow: hidden;
   margin: 0;
@@ -189,12 +188,13 @@ body {
 /*Conversation*/
 
 .conversation {
-  padding: 0 !important;
+  padding: 0 0 65px 0 !important;
   margin: 0 !important;
   height: 100%;
   width: 100%;
-  border-left: 1px solid rgba(0, 0, 0, 0.08);
   overflow-y: visible;
+  background-color: #f7f7f7;
+  box-shadow: inset 0px -65px 0 0px #fff;
 }
 
 .message {
@@ -206,6 +206,8 @@ body {
   overflow-y: auto;
   border: 1px solid #f7f7f7;
   height: calc(100% - 120px);
+  border-left: 2px solid rgb(0 0 0 / 7%);
+  border-right: 2px solid rgb(0 0 0 / 7%);
 }
 
 .message-previous {
@@ -358,17 +360,18 @@ body {
 }
 
 .symptoms-list-container {
-  width: 100%;
+  display: none;
   position: absolute;
   z-index: 0;
-  top: -70px;
-  height: 60px;
+  top: 35px;
+  height: 80px;
+  width: 260px;
   overflow-x: hidden;
   overflow-y: scroll;
   background-color: #ffbaba;
   padding: 10px 10px 0 10px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
 ::-webkit-scrollbar {
@@ -489,16 +492,6 @@ body {
     padding: 4% !important;
     color: rgba(0, 0, 0, 0.4);
     vertical-align: baseline;
-  }
-
-  /*Conversation*/
-  .conversation {
-    padding: 0 !important;
-    margin: 0 !important;
-    height: 100%;
-    /*width: 100%;*/
-    border-left: 1px solid rgba(0, 0, 0, 0.08);
-    /*overflow-y: auto;*/
   }
 
   .message {
