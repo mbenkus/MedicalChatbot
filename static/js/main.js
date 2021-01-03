@@ -1,10 +1,10 @@
 $(document).ready(function () {
   symptoms = JSON.parse(symptoms);
   let input = $("#message-text");
+  let sendBtn = $("#send");
+  let startOverBtn = $("#start-over");
   let dataList = $("#symptoms-list");
   let chat = $("#conversation");
-
-  $(".symptoms-list-container").css("display", "none");
 
   // Handler for any input on the message input field
   input.on("input", function () {
@@ -13,23 +13,38 @@ $(document).ready(function () {
 
     if (insertedValue.length > 1) {
       ssymptoms = $.fn.getSuggestedSymptoms(insertedValue);
-      for (let i = 0; i < ssymptoms.length; i++) {
-        var li = document.createElement("li");
-        li.textContent = ssymptoms[i];
-        dataList.append(li);
+      if (ssymptoms.length === 0) {
+        $(".symptoms-list-container ").slideUp();
+      } else {
+        for (let i = 0; i < ssymptoms.length; i++) {
+          var li = document.createElement("li");
+          li.textContent = ssymptoms[i];
+          dataList.append(li);
+        }
+        $(".symptoms-list-container ").slideDown();
       }
+    } else {
+      $(".symptoms-list-container ").slideUp();
     }
   });
 
+  startOverBtn.on("click", function () {
+    $.fn.startOver();
+  });
+
+  sendBtn.on("click", function () {
+    $.fn.handleUserMessage();
+  });
+
   // Handler for click on one of the suggested symptoms
-  dataList.on("click", "li", function() {
+  dataList.on("click", "li", function () {
     input.val($(this).text());
-    $(".symptoms-list-container ").hide();
+    $(".symptoms-list-container ").slideUp();
   });
   //todo: blur on input - does not work with suggestion item clicks
 
-  input.on("focus", function () {
-    $(".symptoms-list-container ").css("display", "block");
+  input.on("blur", function () {
+    $(".symptoms-list-container ").slideUp();
   });
 
   input.on("keypress", function (e) {
@@ -38,42 +53,55 @@ $(document).ready(function () {
     }
   });
 
-  $("#send").click(function () {
-    $.fn.handleUserMessage();
-  });
-
-  // Handler function for sending a message 
+  // Handler function for sending a message
   $.fn.handleUserMessage = function () {
     $.fn.appendUserMessage();
     $.fn.getPredictedSymptom();
     input.val("");
     chat.animate({
-      scrollTop: $("#conversation .message-body:last-child").position().top
+      scrollTop: $("#conversation .message-body:last-child").position().top,
     });
+  };
+
+  $.fn.startOver = function () {
+    $.fn.getPredictedSymptom(true);
+    $("#conversation").empty();
+    const text =
+      "Welcome! I'm Medical Chatbot, but you can call me Meddy. What symptoms are you currently experiencing? When you've entered all of your symptoms, please write 'Done'.";
+    $("#conversation").append(
+      `<div class="row message-previous"><div class="col-sm-12 previous"></div></div><div class="row message-body"><div class="col-sm-12 message-main-receiver"><div class="receiver"><div class="message-text">${text}</div></div></div></div>`
+    );
+    input.val("");
   };
 
   // Creates the newly sent message element
   $.fn.appendUserMessage = function () {
-    var tekst = input.val();
+    var text = input.val();
     $("#conversation").append(
-      `<div class="row message-body"><div class="col-sm-12 message-main-sender"><div class="sender"><div class="message-text">${tekst}</div></div></div></div>`
+      `<div class="row message-body"><div class="col-sm-12 message-main-sender"><div class="sender"><div class="message-text">${text}</div></div></div></div>`
+    );
+  };
+
+  $.fn.appendBotMessage = function (text) {
+    $("#conversation").append(
+      `<div class="row message-body"><div class="col-sm-12 message-main-receiver"><div class="receiver"><div class="message-text">${text}</div></div></div></div>`
     );
   };
 
   // Retreives prediction to show as bot message
-  $.fn.getPredictedSymptom = function () {
-    var tekst = input.val();
+  $.fn.getPredictedSymptom = function (again) {
+    var text = input.val();
+    if (again) text = "done";
+
     $.ajax({
       url: "http://127.0.0.1:5000/symptom",
-      data: JSON.stringify({ sentence: tekst }),
+      data: JSON.stringify({ sentence: text }),
       contentType: "application/json; charset=utf-8",
       dataType: "json",
       type: "POST",
       success: function (response) {
         console.log(response);
-        $("#conversation").append(
-          `<div class="row message-body"><div class="col-sm-12 message-main-receiver"><div class="receiver"><div class="message-text">${response}</div></div></div></div>`
-        );
+        if (!again) $.fn.appendBotMessage(response);
       },
       error: function () {
         console.log("Error");
