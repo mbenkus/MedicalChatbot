@@ -29,8 +29,13 @@ nlp_model.load_state_dict(model_state)
 nlp_model.eval()
 
 diseases_description = pd.read_csv("symptom_Description.csv")
+diseases_description['Disease'] = diseases_description['Disease'].apply(lambda x: x.lower().strip(" "))
+
 disease_precaution = pd.read_csv("symptom_precaution.csv")
+disease_precaution['Disease'] = disease_precaution['Disease'].apply(lambda x: x.lower().strip(" "))
+
 symptom_severity = pd.read_csv("Symptom-severity.csv")
+symptom_severity = symptom_severity.applymap(lambda s: s.lower().strip(" ").replace(" ", "") if type(s) == str else s)
 
 
 with open('list_of_symptoms.pickle', 'rb') as data_file:
@@ -95,16 +100,16 @@ def predict_symptom():
             x_test = np.asarray(x_test)            
             disease = prediction_model.predict(x_test.reshape(1,-1))[0]
 
-            description = diseases_description.loc[diseases_description['Disease'] == disease.strip(" "), 'Description'].iloc[0]
-            precaution = disease_precaution[disease_precaution['Disease'] == disease]
+            description = diseases_description.loc[diseases_description['Disease'] == disease.strip(" ").lower(), 'Description'].iloc[0]
+            precaution = disease_precaution[disease_precaution['Disease'] == disease.strip(" ").lower()]
             precautions = 'Precautions: ' + precaution.Precaution_1.iloc[0] + ", " + precaution.Precaution_2.iloc[0] + ", " + precaution.Precaution_3.iloc[0] + ", " + precaution.Precaution_4.iloc[0]
             response_sentence = "It looks to me like you have " + disease + ". <br><br> <i>Description: " + description + "</i>" + "<br><br><b>"+ precautions + "</b>"
             
             severity = []
 
             for each in user_symptoms: 
-                severity.append(symptom_severity.loc[symptom_severity['Symptom'] == each.strip(" "), 'weight'].iloc[0])
-
+                severity.append(symptom_severity.loc[symptom_severity['Symptom'] == each.lower().strip(" ").replace(" ", ""), 'weight'].iloc[0])
+                
             if np.mean(severity) > 4 or np.max(severity) > 5:
                 response_sentence = response_sentence + "<br><br>Considering your symptoms are severe, and Meddy isn't a real doctor, you should consider talking to one. :)"
 
