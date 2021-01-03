@@ -122,6 +122,7 @@
             "patterns": [
                 "blurred and distorted vision",
                 "can't see clearly",
+                "can't see",
                 "blurry vision",
                 "Vision distorted"
             ]
@@ -234,6 +235,16 @@
             ]
         },
         {
+            "tag": "congestion",
+            "patterns": [
+                "congestion",
+                "can't breathe",
+                "nose stuffy",
+                "nose full",
+                "nasal congestion"
+            ]
+        },
+        {
             "tag": "cramps",
             "patterns": [
                 "cramps",
@@ -267,7 +278,8 @@
             "patterns": [
                 "diarrhoea",
                 "always on toilet",
-                "poop often"
+                "poop often",
+                "poo a lot"
             ]
         },
         {
