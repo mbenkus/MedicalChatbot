@@ -1,32 +1,71 @@
 $(document).ready(function () {
-  $("#send").click(function () {
-    $.fn.handleUserMessage();
+  symptoms = JSON.parse(symptoms);
+  let input = $("#message-text");
+  let dataList = $("#symptoms-list");
+  let chat = $("#conversation");
+
+  $(".symptoms-list-container").css("display", "none");
+
+  // Handler for any input on the message input field
+  input.on("input", function () {
+    let insertedValue = $(this).val();
+    $("#symptoms-list").empty();
+
+    if (insertedValue.length > 1) {
+      ssymptoms = $.fn.getSuggestedSymptoms(insertedValue);
+      for (let i = 0; i < ssymptoms.length; i++) {
+        var li = document.createElement("li");
+        li.textContent = ssymptoms[i];
+        dataList.append(li);
+      }
+    }
   });
 
-  $("#message-text").on("keypress", function (e) {
+  // Handler for click on one of the suggested symptoms
+  dataList.on("click", "li", function() {
+    input.val($(this).text());
+    $(".symptoms-list-container ").hide();
+  });
+  //todo: blur on input - does not work with suggestion item clicks
+
+  input.on("focus", function () {
+    $(".symptoms-list-container ").css("display", "block");
+  });
+
+  input.on("keypress", function (e) {
     if (e.which == 13) {
       $.fn.handleUserMessage();
     }
   });
 
+  $("#send").click(function () {
+    $.fn.handleUserMessage();
+  });
+
+  // Handler function for sending a message 
   $.fn.handleUserMessage = function () {
     $.fn.appendUserMessage();
     $.fn.getPredictedSymptom();
-    $("#message-text").val("");
-  }
+    input.val("");
+    chat.animate({
+      scrollTop: $("#conversation .message-body:last-child").position().top
+    });
+  };
 
+  // Creates the newly sent message element
   $.fn.appendUserMessage = function () {
-    var tekst = $("#message-text").val();
+    var tekst = input.val();
     $("#conversation").append(
       `<div class="row message-body"><div class="col-sm-12 message-main-sender"><div class="sender"><div class="message-text">${tekst}</div></div></div></div>`
     );
-  }
+  };
 
+  // Retreives prediction to show as bot message
   $.fn.getPredictedSymptom = function () {
-    var tekst = $("#message-text").val();
+    var tekst = input.val();
     $.ajax({
       url: "http://127.0.0.1:5000/symptom",
-      data: JSON.stringify({ "sentence": tekst }),
+      data: JSON.stringify({ sentence: tekst }),
       contentType: "application/json; charset=utf-8",
       dataType: "json",
       type: "POST",
@@ -38,97 +77,17 @@ $(document).ready(function () {
       },
       error: function () {
         console.log("Error");
+      },
+    });
+  };
+
+  $.fn.getSuggestedSymptoms = function (val) {
+    let suggestedSymptoms = [];
+    $.each(symptoms, function (i, v) {
+      if (v.includes(val)) {
+        suggestedSymptoms.push(v);
       }
     });
-  }
-
+    return suggestedSymptoms.slice(0, 3);
+  };
 });
-
-function autocomplete(symptoms) {
-  var currentFocus;
-  var input = document.getElementById("message-text");
-
-  // console.log(symptoms);
-
-  input.addEventListener("input", function (e) {
-    var a, b, i, val = this.value;
-
-    closeAllLists();
-
-    if (!val) {
-      return false;
-    }
-
-    currentFocus = -1;
-    a = document.createElement("div");
-    a.setAttribute("id", this.id + " autocomplete-list");
-    a.setAttribute("class", "autocomplete-items");
-    this.parentNode.appendChild(a);
-
-    for (i = 0; i < symptoms.length; i++) {
-      if (symptoms[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-        b = document.createElement("div");
-        b.innerHTML = "<strong>" + symptoms[i] + "</strong>";
-        b.innerHTML += symptoms[i];
-        b.innerHTML += "<input value='" + symptoms[i] + "'>";
-
-        b.addEventListener("click", function (e) {
-          input.value = this.getElementsByTagName("input")[0].value;
-          closeAllLists();
-        });
-
-        a.appendChild(b);
-      }
-    }
-  });
-
-  input.addEventListener("keydown", function (e) {
-    var x = document.getElementById(this.id + "autocomplete-list");
-    if (x) x = x.getElementsByTagName("div");
-
-    // On arrow down, arrow up and enter
-    if (e.code == 'ArrowUp') {
-      currentFocus++;
-      addActive(x);
-    } else if (e.code == 'ArrowDown') {
-      currentFocus--;
-      addActive(x);
-    } else if (e.code == 'Enter') {
-      e.preventDefault();
-      if (currentFocus > -1) {
-        if (x) x[currentFocus].click();
-      }
-    }
-  });
-
-  // Defines item as active
-  function addActive(x) {
-    if (!x) return false;
-    removeActive(x);
-    if (currentFocus >= x.length) currentFocus = 0;
-    if (currentFocus < 0) currentFocus = x.length - 1;
-    x[currentFocus].classList.add("autocomplete-active");
-  }
-
-  // Removes active state from all autocomplete items
-  function removeActive(x) {
-    for (var i = 0; i < x.length; i++) {
-      x[i].classList.remove("autocomplete-active");
-    }
-  }
-
-  function closeAllLists(elmnt) {
-    var x = document.getElementsByClassName("autocomplete-items");
-    for (var i = 0; i < x.length; i++) {
-      if (elmnt != x[i] && elmnt != input) {
-        x[i].parentNode.removeChild(x[i]);
-      }
-    }
-  }
-
-  document.addEventListener("click", function (e) {
-    closeAllLists(e.target);
-  });
-}
-
-autocomplete(symptoms);
