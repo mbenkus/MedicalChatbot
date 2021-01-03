@@ -55,12 +55,14 @@ $(document).ready(function () {
 
   // Handler function for sending a message
   $.fn.handleUserMessage = function () {
-    $.fn.appendUserMessage();
-    $.fn.getPredictedSymptom();
-    input.val("");
-    chat.animate({
-      scrollTop: $("#conversation .message-body:last-child").position().top,
-    });
+    if (input.val()) {
+      $.fn.appendUserMessage();
+      $.fn.getPredictedSymptom();
+      input.val("");
+      chat.animate({
+        scrollTop: $("#conversation .message-body:last-child").position().top,
+      });
+    }
   };
 
   $.fn.startOver = function () {
