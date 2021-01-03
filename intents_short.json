@@ -202,6 +202,7 @@
             "patterns": [
                 "can't poop",
                 "constipated",
+                "am constipated",
                 "haven't pooped in a while"
             ]
         },
@@ -270,6 +271,7 @@
             "tag": "depression",
             "patterns": [
                 "depression",
+                "have depression",
                 "feel depressed"
             ]
         },
@@ -394,9 +396,10 @@
         {
             "tag": "headache",
             "patterns": [
+                "headache",
+                "have headache",
                 "head hurts",
-                "pain in head",
-                "headache"
+                "pain in head"
             ]
         },
         {
@@ -659,6 +662,7 @@
         {
             "tag": "pain_behind_the_eyes",
             "patterns": [
+                "eyes hurt",
                 "Back of eyes hurt",
                 "hurts behind eyes"
             ]
@@ -683,6 +687,7 @@
         {
             "tag": "painful_walking",
             "patterns": [
+                "can't walk",
                 "hurts when walk",
                 "Walking hurts",
                 "Walking painful"

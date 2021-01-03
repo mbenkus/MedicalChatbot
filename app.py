@@ -102,7 +102,7 @@ def predict_symptom():
 
             description = diseases_description.loc[diseases_description['Disease'] == disease.strip(" ").lower(), 'Description'].iloc[0]
             precaution = disease_precaution[disease_precaution['Disease'] == disease.strip(" ").lower()]
-            precautions = 'Precautions: ' + precaution.Precaution_1.iloc[0] + ", " + precaution.Precaution_2.iloc[0] + ", " + precaution.Precaution_3.iloc[0] + ", " + precaution.Precaution_4.iloc[0]
+            precautions = 'Precautions: ' + str(precaution.Precaution_1.iloc[0]) + ", " + str(precaution.Precaution_2.iloc[0]) + ", " + str(precaution.Precaution_3.iloc[0]) + ", " + str(precaution.Precaution_4.iloc[0])
             response_sentence = "It looks to me like you have " + disease + ". <br><br> <i>Description: " + description + "</i>" + "<br><br><b>"+ precautions + "</b>"
             
             severity = []
