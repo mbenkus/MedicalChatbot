@@ -38,7 +38,7 @@ symptom_severity = pd.read_csv("data/Symptom-severity.csv")
 symptom_severity = symptom_severity.applymap(lambda s: s.lower().strip(" ").replace(" ", "") if type(s) == str else s)
 
 
-with open('models/list_of_symptoms.pickle', 'rb') as data_file:
+with open('data/list_of_symptoms.pickle', 'rb') as data_file:
     symptoms_list = pickle.load(data_file)
 
 with open('models/fitted_model.pickle', 'rb') as modelFile:
@@ -81,7 +81,7 @@ def index():
 def predict_symptom():
     print("Request json:", request.json)
     sentence = request.json['sentence']
-    if sentence.replace(".", "").replace("!","").lower() == "done":
+    if sentence.replace(".", "").replace("!","").lower().strip() == "done":
 
         if not user_symptoms:
             response_sentence = random.choice(
@@ -102,7 +102,7 @@ def predict_symptom():
 
             description = diseases_description.loc[diseases_description['Disease'] == disease.strip(" ").lower(), 'Description'].iloc[0]
             precaution = disease_precaution[disease_precaution['Disease'] == disease.strip(" ").lower()]
-            precautions = 'Precautions: ' + str(precaution.Precaution_1.iloc[0]) + ", " + str(precaution.Precaution_2.iloc[0]) + ", " + str(precaution.Precaution_3.iloc[0]) + ", " + str(precaution.Precaution_4.iloc[0])
+            precautions = 'Precautions: ' + precaution.Precaution_1.iloc[0] + ", " + precaution.Precaution_2.iloc[0] + ", " + precaution.Precaution_3.iloc[0] + ", " + precaution.Precaution_4.iloc[0]
             response_sentence = "It looks to me like you have " + disease + ". <br><br> <i>Description: " + description + "</i>" + "<br><br><b>"+ precautions + "</b>"
             
             severity = []
