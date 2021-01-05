@@ -14,7 +14,7 @@ from flask import Flask, render_template, url_for, request, jsonify
 random.seed(datetime.now())
 
 device = torch.device('cpu')
-FILE = "data.pth"
+FILE = "models/data.pth"
 model_data = torch.load(FILE)
 
 input_size = model_data['input_size']
@@ -28,20 +28,20 @@ nlp_model = NeuralNet(input_size, hidden_size, output_size).to(device)
 nlp_model.load_state_dict(model_state)
 nlp_model.eval()
 
-diseases_description = pd.read_csv("symptom_Description.csv")
+diseases_description = pd.read_csv("data/symptom_Description.csv")
 diseases_description['Disease'] = diseases_description['Disease'].apply(lambda x: x.lower().strip(" "))
 
-disease_precaution = pd.read_csv("symptom_precaution.csv")
+disease_precaution = pd.read_csv("data/symptom_precaution.csv")
 disease_precaution['Disease'] = disease_precaution['Disease'].apply(lambda x: x.lower().strip(" "))
 
-symptom_severity = pd.read_csv("Symptom-severity.csv")
+symptom_severity = pd.read_csv("data/Symptom-severity.csv")
 symptom_severity = symptom_severity.applymap(lambda s: s.lower().strip(" ").replace(" ", "") if type(s) == str else s)
 
 
-with open('list_of_symptoms.pickle', 'rb') as data_file:
+with open('models/list_of_symptoms.pickle', 'rb') as data_file:
     symptoms_list = pickle.load(data_file)
 
-with open('fitted_model.pickle', 'rb') as modelFile:
+with open('models/fitted_model.pickle', 'rb') as modelFile:
     prediction_model = pickle.load(modelFile)
 
 user_symptoms = set()
