@@ -26,6 +26,12 @@ venv\Scripts\activate
 pip install flask torch nltk numpy==1.19.3 sklearn pandas
 ```
 
+In order for _nltk_ tokenization to work, the _punkt_ package must be downloaded. To do this, simply enter the Python shell and run the following:
+```python
+import nltk
+nltk.download('punkt')
+```
+
 This will install all the required dependencies needed to run the application successfully.
 
 ## Tests
