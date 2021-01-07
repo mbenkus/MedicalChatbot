@@ -1,10 +1,19 @@
 # Overview
 
-Creating medical chatbot using python (Flask) and machine learning algorithms for purposes of project for course Intelligent Systems at Faculty of Organization and Informatics, University of Zagreb. 
+Creating medical chat-bot using Python (*Flask*) and machine learning algorithms for purposes of project for the course of Intelligent Systems at the Faculty of Organization and Informatics, University of Zagreb. 
 
 # Requirements
 
-Python 3.5 and newer.
+Python 3.5 or newer.
+
+Dependencies:
+
+- Flask
+- PyTorch
+- NLTK
+- NumPy
+- Scikit-learn
+- Pandas
 
 # Install requirements
 
@@ -16,19 +25,26 @@ Linux:
 ```
 python3 -m venv venv
 venv/bin/activate
-pip install Flask
+pip install flask torch nltk numpy sklearn pandas
 ```
 Windows:
 
 ```
 py -3 -m venv venv
 venv\Scripts\activate
-pip install Flask
+pip install flask torch nltk numpy==1.19.3 sklearn pandas
+```
+
+
+
+In order for _nltk_ tokenization to work, the _'punkt'_ package must be downloaded. To do this, simply enter the Python shell and run the following:
+
+```python
+import nltk
+nltk.download('punkt')
 ```
 
 This will install all the required dependencies needed to run the application successfully.
-
-## Tests
 
 ## Run
 

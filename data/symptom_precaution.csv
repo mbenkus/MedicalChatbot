@@ -1,7 +1,7 @@
 Disease,Precaution_1,Precaution_2,Precaution_3,Precaution_4
 Drug Reaction,stop irritation,consult nearest hospital,stop taking drug,follow up
 Malaria,Consult nearest hospital,avoid oily food,avoid non veg food,keep mosquitos out
-Allergy,apply calamine,cover area with bandage,,use ice to compress itching
+Allergy,apply calamine,cover area with bandage,keep a diary,use ice to compress itching
 Hypothyroidism,reduce stress,exercise,eat healthy,get proper sleep
 Psoriasis,wash hands with warm soapy water,stop bleeding using pressure,consult doctor,salt baths
 GERD,avoid fatty spicy food,avoid lying down after eating,maintain healthy weight,exercise
@@ -35,7 +35,7 @@ Jaundice,drink plenty of water,consume milk thistle,eat fruits and high fiberous
 Hepatitis E,stop alcohol consumption,rest,consult doctor,medication
 Dengue,drink papaya leaf juice,avoid fatty spicy food,keep mosquitos away,keep hydrated
 Hepatitis D,consult doctor,medication,eat healthy,follow up
-Heart attack,call ambulance,chew or swallow asprin,keep calm,
+Heart attack,call ambulance,chew or swallow asprin,keep calm,lie down
 Pneumonia,consult doctor,medication,rest,follow up
 Arthritis,exercise,use hot and cold therapy,try acupuncture,massage
 Gastroenteritis,stop eating solid food for while,try taking small sips of water,rest,ease back into eating
