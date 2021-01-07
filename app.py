@@ -99,6 +99,7 @@ def predict_symptom():
 
             x_test = np.asarray(x_test)            
             disease = prediction_model.predict(x_test.reshape(1,-1))[0]
+            print(disease)
 
             description = diseases_description.loc[diseases_description['Disease'] == disease.strip(" ").lower(), 'Description'].iloc[0]
             precaution = disease_precaution[disease_precaution['Disease'] == disease.strip(" ").lower()]
