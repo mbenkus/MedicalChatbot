@@ -1,6 +1,6 @@
 # Overview
 
-Creating medical chat-bot using Python (*Flask*) and machine learning algorithms for purposes of project for the course of Intelligent Systems at the Faculty of Organization and Informatics, University of Zagreb. 
+Creating medical chatbot using Python (*Flask*) and machine learning algorithms for purposes of project for the course of Intelligent Systems at the Faculty of Organization and Informatics, University of Zagreb. 
 
 # Requirements
 
@@ -14,6 +14,7 @@ Dependencies:
 - NumPy
 - Scikit-learn
 - Pandas
+- matplotlib
 
 # Install requirements
 
@@ -25,14 +26,14 @@ Linux:
 ```
 python3 -m venv venv
 venv/bin/activate
-pip install flask torch nltk numpy sklearn pandas
+pip install flask torch nltk numpy sklearn pandas matplotlib
 ```
 Windows:
 
 ```
 py -3 -m venv venv
 venv\Scripts\activate
-pip install flask torch nltk numpy==1.19.3 sklearn pandas
+pip install flask torch nltk numpy==1.19.3 sklearn pandas matplotlib
 ```
 
 
